@@ -30,7 +30,7 @@ bortlefinder-fetch-grid = "bortlefinder._build:main"
 
 [project.optional-dependencies]
 # Only needed for fetch_grid() / bortlefinder-fetch-grid (one-time grid build).
-build = ["rasterio>=1.3"]
+build = ["rasterio>=1.4.4"]
 
 [dependency-groups]
 dev = ["pytest>=8.0"]
