@@ -1,6 +1,6 @@
 [project]
 name = "bortlefinder"
-version = "0.1.0"
+version = "0.2.0"
 description = "Approximate an observer's Bortle dark-sky class from their coordinates"
 readme = "README.md"
 license = "MIT"
