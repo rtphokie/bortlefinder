@@ -23,9 +23,10 @@ This downloads the source atlas (~684MB) which is immediately reduced down to a 
 ```python
 import bortlefinder
 
-estimate = bortlefinder.estimate(lat=35.0, lon=-78.6)
+# Nicholas R. Anderson Observatory, Blacksburg, VA
+estimate = bortlefinder.estimate(lat=37.2221, lon=-80.5401)
 print(estimate.bortle_class, estimate.bortle_desc, estimate.sqm, estimate.nelm)
-# 5 Suburban sky 20.72 5.96
+# 5 Suburban sky 20.14 5.59
 
 # Bortle <-> SQM (sky quality meter, mag/arcsec^2) conversions are also
 # available directly, no grid needed:

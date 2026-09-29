@@ -1,9 +1,10 @@
 """Approximate an observer's Bortle dark-sky class from their coordinates.
 
     >>> import bortlefinder
-    >>> estimate = bortlefinder.estimate(lat=35.0, lon=-78.6)
+    >>> # Nicholas R. Anderson Observatory, Blacksburg, VA
+    >>> estimate = bortlefinder.estimate(lat=37.2221, lon=-80.5401)
     >>> estimate.bortle_class, estimate.bortle_desc, estimate.nelm
-    (8, 'City sky', 4.52)
+    (5, 'Suburban sky', 5.59)
 
 `estimate()` returns a `GridEstimate` -- see its docstring (in `grid.py`)
 for what each field means, including `nelm`, the naked-eye limiting
