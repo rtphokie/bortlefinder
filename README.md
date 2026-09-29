@@ -9,7 +9,7 @@ from their latitude and longitude.
 pip install bortlefinder
 ```
 
-The light-pollution data behind the estimate is licensed CC BY-NC 4.0 (non-commercial) by its original authors, so it isn't bundled with this package (see licensing setion below for details). Fetch it once, directly from the source, before first use:
+The light-pollution data behind the estimate is licensed CC BY-NC 4.0 (non-commercial) by its original authors, so it isn't bundled with this package (see the Licensing section below for details). Fetch it once, directly from the source, before first use:
 
 ```
 pip install bortlefinder[build]
@@ -24,17 +24,29 @@ This downloads the source atlas (~684MB) which is immediately reduced down to a 
 import bortlefinder
 
 estimate = bortlefinder.estimate(lat=35.0, lon=-78.6)
-print(estimate.bortle_class, estimate.bortle_desc, estimate.sqm)
-# 8 City sky 17.75
+print(estimate.bortle_class, estimate.bortle_desc, estimate.sqm, estimate.nelm)
+# 5 Suburban sky 20.72 5.96
 
 # Bortle <-> SQM (sky quality meter, mag/arcsec^2) conversions are also
 # available directly, no grid needed:
 bortlefinder.bortle_to_sqm(4)      # 21.05
 bortlefinder.sqm_to_bortle(21.2)   # (3, 'Rural sky')
+bortlefinder.nelm_from_sqm(21.2)   # 6.23
 ```
 
 `estimate()` raises `FileNotFoundError` with fetch instructions if the grid
 hasn't been fetched yet.
+
+### Return value
+
+`estimate()` returns a `GridEstimate`, a small dataclass with four fields:
+
+| Field          | Type    | Meaning                                                                                                   |
+|----------------|---------|-------------------------------------------------------------------------------------------------------------|
+| `sqm`          | `float` | Sky surface brightness in mag/arcsec², higher is darker. Read from the light-pollution grid and converted from the Falchi et al. (2016) zenith luminance reading. |
+| `bortle_class` | `int`   | Approximate Bortle dark-sky class, 1 (darkest) to 9 (inner-city), derived from `sqm` -- see "Accuracy" below. |
+| `bortle_desc`  | `str`   | Short label for `bortle_class`, e.g. `"Rural sky"`.                                                       |
+| `nelm`         | `float` | Naked-eye limiting magnitude: the faintest star an average observer could see overhead, at the zenith, with no moon up. Higher means fainter stars are visible (a better sky) -- roughly 6.5-7.0 at Bortle 1, 3-4 at Bortle 8-9. |
 
 ## Accuracy
 

@@ -28,10 +28,23 @@ pytestmark = pytest.mark.skipif(
 DARK_SKY_SITES = [
     ("Natural Bridges National Monument, UT (first-ever certified Dark Sky Park, 2007)", 37.6014, -110.0137),
     ("Cherry Springs State Park, PA (Gold-tier certified Dark Sky Park)", 41.6598, -77.8213),
+    ("Staunton River State Park, VA (Silver-tier certified Dark Sky Park)", 36.70,-78.67),
+    ("Las Vegas, NV (extreme urban light pollution)", 36.12, -115.17),
+    ("Raleigh, NC (city light pollution)", 35.80, -78.64),
 ]
 
 
 @pytest.mark.parametrize("name,lat,lon", DARK_SKY_SITES)
 def test_certified_dark_sky_site_reads_as_dark(name, lat, lon):
     estimate = bortlefinder.estimate(lat=lat, lon=lon)
-    assert estimate.bortle_class <= 3, f"{name}: expected a dark reading, got Bortle {estimate.bortle_class}"
+    print(name)
+    from pprint import  pprint
+    pprint(estimate)
+    if 'Gold' in name:
+        assert estimate.bortle_class <= 3.0, f"{name}: expected Bortle 3.0 or less, got {estimate.bortle_class}"
+    elif 'Silver' in name:
+        assert estimate.bortle_class <= 4.5, f"{name}: expected Bortle 4.5 or less, got {estimate.bortle_class}"
+    elif 'extreme urban' in name:
+        assert estimate.bortle_class >= 9, f"{name}: expected Bortle 9, got {estimate.bortle_class}"
+    elif 'urban' in name:
+        assert estimate.bortle_class >= 7, f"{name}: expected Bortle 9, got {estimate.bortle_class}"

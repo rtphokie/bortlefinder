@@ -34,7 +34,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
-from .scale import falchi_luminance_to_sqm, sqm_to_bortle
+from .scale import falchi_luminance_to_sqm, nelm_from_sqm, sqm_to_bortle
 
 DATA_FILENAME = "light_pollution_grid.npz"
 ACCURACY_CAVEAT = (
@@ -46,9 +46,30 @@ ACCURACY_CAVEAT = (
 
 @dataclass
 class GridEstimate:
+    """Result of a coordinate lookup, as returned by `estimate_at()`.
+
+    Attributes:
+        sqm: Sky surface brightness in mag/arcsec^2 (higher = darker), as
+            read from the light-pollution grid and converted from the
+            Falchi et al. (2016) zenith luminance reading.
+        bortle_class: Approximate Bortle dark-sky class, 1 (darkest) to 9
+            (inner-city), derived from `sqm` -- see the module-level CAVEAT
+            above and README "Accuracy" for how this can differ from a
+            true whole-sky Bortle rating.
+        bortle_desc: Short human-readable label for `bortle_class` (e.g.
+            "Rural sky"), from the same table as `bortle_to_sqm`/
+            `sqm_to_bortle` in `scale.py`.
+        nelm: Naked-eye limiting magnitude -- the faintest star magnitude
+            visible overhead to an average observer under this sky
+            brightness, at the zenith, with no moon up. Higher is fainter
+            (better); roughly 6.5-7.0 at Bortle 1, 4-5 at Bortle 7-8. See
+            `scale.nelm_from_sqm` for the conversion and its caveats.
+    """
+
     sqm: float
     bortle_class: int
     bortle_desc: str
+    nelm: float
 
 
 def cache_dir() -> Path:
@@ -105,4 +126,5 @@ def estimate_at(lat: float, lon: float) -> GridEstimate:
     la = float(luminance[row, col])
     sqm = falchi_luminance_to_sqm(la)
     bortle_class, bortle_desc = sqm_to_bortle(sqm)
-    return GridEstimate(sqm=sqm, bortle_class=bortle_class, bortle_desc=bortle_desc)
+    nelm = nelm_from_sqm(sqm)
+    return GridEstimate(sqm=sqm, bortle_class=bortle_class, bortle_desc=bortle_desc, nelm=nelm)

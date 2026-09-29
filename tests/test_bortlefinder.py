@@ -52,8 +52,16 @@ def test_estimate_at_bright_cell_is_low_bortle_class(synthetic_grid):
     assert bortlefinder.grid_available()
     estimate = bortlefinder.estimate(lat=9.0, lon=-9.0)  # nearest cell: row 0, col 0
     assert estimate.bortle_class >= 8
+    assert estimate.nelm == bortlefinder.nelm_from_sqm(estimate.sqm)
 
 
 def test_estimate_at_dark_cell_is_pristine(synthetic_grid):
     estimate = bortlefinder.estimate(lat=-9.0, lon=9.0)  # nearest cell: row 3, col 3
     assert estimate.bortle_class == 1
+    assert estimate.nelm == bortlefinder.nelm_from_sqm(estimate.sqm)
+
+
+def test_nelm_from_sqm_darker_sky_means_fainter_limiting_magnitude():
+    dark_nelm = bortlefinder.nelm_from_sqm(bortlefinder.bortle_to_sqm(1))
+    bright_nelm = bortlefinder.nelm_from_sqm(bortlefinder.bortle_to_sqm(9))
+    assert dark_nelm > bright_nelm

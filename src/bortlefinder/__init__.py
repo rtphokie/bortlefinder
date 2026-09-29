@@ -2,15 +2,19 @@
 
     >>> import bortlefinder
     >>> estimate = bortlefinder.estimate(lat=35.0, lon=-78.6)
-    >>> estimate.bortle_class, estimate.bortle_desc
-    (8, 'City sky')
+    >>> estimate.bortle_class, estimate.bortle_desc, estimate.nelm
+    (8, 'City sky', 4.52)
+
+`estimate()` returns a `GridEstimate` -- see its docstring (in `grid.py`)
+for what each field means, including `nelm`, the naked-eye limiting
+magnitude implied by that sky brightness.
 
 The first call needs the light-pollution grid fetched once -- see
 `fetch_grid()` and `grid.py` for why it isn't bundled with the package.
 """
 
 from .grid import ACCURACY_CAVEAT, GridEstimate, cache_dir, estimate_at, grid_available
-from .scale import BORTLE_SQM, bortle_to_sqm, sqm_to_bortle
+from .scale import BORTLE_SQM, bortle_to_sqm, nelm_from_sqm, sqm_to_bortle
 
 estimate = estimate_at
 
@@ -36,4 +40,5 @@ __all__ = [
     "BORTLE_SQM",
     "bortle_to_sqm",
     "sqm_to_bortle",
+    "nelm_from_sqm",
 ]

@@ -80,3 +80,13 @@ def falchi_luminance_to_sqm(la_mcd_m2: float) -> float:
         return _FALCHI_SQM_NATURAL
     scaled = la_mcd_m2 * _FALCHI_SCALE
     return _FALCHI_SQM_NATURAL - 2.5 * math.log10((scaled + _FALCHI_L_NATURAL) / _FALCHI_L_NATURAL)
+
+
+def nelm_from_sqm(sqm: float) -> float:
+    """Naked-eye limiting magnitude for a sky of surface brightness `sqm`
+    (mag/arcsec^2), via the standard Schaefer-derived (Unihedron) conversion.
+    Ported from DarkHours darkhours/moonlight.py (MIT licensed). This is a
+    dark-sky, zenith-pointing estimate only -- it doesn't account for moon
+    phase, target altitude, or local obstructions.
+    """
+    return 7.93 - 5.0 * math.log10(10 ** (4.316 - sqm / 5.0) + 1.0)
