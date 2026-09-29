@@ -38,7 +38,7 @@ hasn't been fetched yet.
 
 ## Accuracy
 
-The Bortle class is estimated from a satellite measurement of *artificial zenith sky brightness* -- how bright the sky glows when you look straight up, from light scattered back down by the atmosphere (Falchi et al. 2016, *New World Atlas of Artificial Night Sky Brightness*). The Bortle scale itself, though, is a subjective rating of the *whole* sky, and is dominated by light domes sitting low on the horizon rather than by zenith glow. A site can have a dark zenith while still ringed by nearby city lights, or vice versa, so the two don't always agree.
+The Bortle class is estimated from a satellite measurement of *artificial zenith sky brightness* -- how bright the sky glows when you look straight up, from light scattered back down by the atmosphere (Falchi et al. 2016, [*New World Atlas of Artificial Night Sky Brightness*](https://doi.org/10.1126/sciadv.1600377)). The Bortle scale itself, though, is a subjective rating of the *whole* sky, and is dominated by light domes sitting low on the horizon rather than by zenith glow. A site can have a dark zenith while still ringed by nearby city lights, or vice versa, so the two don't always agree.
 
 David Lorenz validated this kind of satellite-derived estimate against 397 nights of paired NPS Night Sky Team observations and found real disagreement -- commonly a full class, worse in the Bortle 5-7 range (https://djlorenz.github.io/astronomy/lp/bortle.html). Treat the class returned here as a reasonable starting estimate, not a substitute for a local dark-sky reading or a real SQM meter. 
 
