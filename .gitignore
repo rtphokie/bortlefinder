@@ -1,0 +1,31 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.egg-info/
+
+# Build / packaging artifacts
+build/
+dist/
+wheels/
+*.whl
+*.tar.gz
+
+# Virtual environments
+.venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Test / tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# The light-pollution grid is never checked into this repo -- it's fetched
+# at runtime (bortlefinder-fetch-grid) into the platform user cache dir,
+# not written under the project tree. This is only here in case a local
+# script or test scratch space lands here.
+.cache/

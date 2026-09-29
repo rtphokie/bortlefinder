@@ -1,0 +1,40 @@
+[project]
+name = "bortlefinder"
+version = "0.1.0"
+description = "Approximate an observer's Bortle dark-sky class from their coordinates"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "trice", email = "rtphokie@gmail.com" }
+]
+requires-python = ">=3.11"
+keywords = ["bortle", "astronomy", "light-pollution", "dark-sky", "stargazing"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.26",
+    "platformdirs>=4.0",
+]
+
+[project.scripts]
+bortlefinder-fetch-grid = "bortlefinder._build:main"
+
+[project.optional-dependencies]
+# Only needed for fetch_grid() / bortlefinder-fetch-grid (one-time grid build).
+build = ["rasterio>=1.3"]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
