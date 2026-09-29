@@ -25,6 +25,10 @@ dependencies = [
     "platformdirs>=4.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/rtphokie/bortlefinder"
+Repository = "https://github.com/rtphokie/bortlefinder"
+
 [project.scripts]
 bortlefinder-fetch-grid = "bortlefinder._build:main"
 
